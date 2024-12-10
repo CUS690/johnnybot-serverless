@@ -12,6 +12,8 @@
     greeting.innerHTML = `Hi there! I'm Johnny Thunderbot – your guide to St. John's University. <br><br>Want to know how to register for class? The best places to eat? Confused about the campus?<br><br>Ask me anything.`
 
     chatWindow.append(greeting)
+
+    
   }
 
   window.onload = setTimeout(greetUser, 500);
@@ -35,6 +37,13 @@
     }
   })
 
+  function smoothScroll(elem){
+    elem.scrollTo({
+      top: elem.scrollHeight,
+      behavior: 'smooth'
+    })
+  }
+
   function userTyping(){
     //create typing indicator element for user side
     if (!indicator) {
@@ -43,7 +52,7 @@
 
       for (let i = 0; i < 3; i++){
         let dot = document.createElement('span');
-        dot.classList.add('dot', 'user');
+        dot.classList.add('dot', 'bot');
         indicator.appendChild(dot);
       }
     }
@@ -53,7 +62,7 @@
       if(!chatWindow.contains(indicator)){
         chatWindow.appendChild(indicator)
 
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+        smoothScroll(chatWindow)
 
         submit.querySelector('.submitIcon')
           .setAttribute('style', 'fill: rgb(207,10,44); filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));')
@@ -65,7 +74,8 @@
       }
 
       //reset chat and button styling
-      submit.querySelector('.submitIcon').setAttribute('style', 'fill: rgb(143,143,143); filter: none;')
+      submit.querySelector('.submitIcon')
+        .setAttribute('style', 'fill: rgb(143,143,143); filter: none;')
         
     }
   }
@@ -80,14 +90,60 @@
 
     if (userMessage) {
       chatWindow.innerHTML += `<div class="chatOutput user">${userMessage}</div>`
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+      smoothScroll(chatWindow)
 
       //reset chat input and button styling
       submit.querySelector('.submitIcon').setAttribute('style', 'fill: rgb(143, 143, 143)')
       input.value = '';
       input.placeholder = 'Message Johnny'
     }
+
+    //bot typing indicator
+    let botIndicator = document.createElement('div')
+    botIndicator.classList.add('chatOutput', 'bot', 'typingIndicator')
+
+    for (let i = 0; i < 3; i++){
+      let dot = document.createElement('span');
+      dot.classList.add('dot', 'bot');
+      botIndicator.appendChild(dot);
+    }
+
+    chatWindow.appendChild(botIndicator);
+    smoothScroll(chatWindow)
+
+    //LLM RESPONSE
+    try {
+      const response = await fetch("http://localhost:8000/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: userMessage })
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text(); 
+        throw new Error(`HTTP ${response.status}: ${errorMessage}`);
+      }
+  
+      const data = await response.json();
+
+      if (chatWindow.contains(botIndicator)){ chatWindow.removeChild(botIndicator) }
+
+      chatWindow.innerHTML += `<div class="chatOutput bot">${data.reply}</div>`
+
+      smoothScroll(chatWindow)
+
+    } catch (error) {
+      console.error("Fetch error:", error.message);
+
+      chatWindow.innerHTML += `<div class="chatOutput bot">Sorry, Johnny couldn't get this message. Please wait or try again.</div>`
+
+      if (chatWindow.contains(botIndicator)){ chatWindow.removeChild(botIndicator) }
+    }
   
   }
-  
+
+  console.log('@ https://github.com/CUS690/johnnybot')
+
 })();

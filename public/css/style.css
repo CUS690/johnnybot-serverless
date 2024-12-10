@@ -37,31 +37,43 @@ body::-webkit-scrollbar {
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  max-height: 100vh;
-  background-image: radial-gradient(
-    circle farthest-side at 50% 120%,
-    rgba(207, 10, 44, 1) 1%,
-    rgba(7, 27, 44, 1) 35%
-  );
+  height: 100vh;
+  background-image: 
+    radial-gradient(
+      ellipse 130% 10% at 50% 0%, 
+      rgba(207, 10, 44, .7) 1%,    
+      rgba(207, 10, 44, 0.3) 30%, 
+      transparent 70%             
+    ),
+    radial-gradient(
+      ellipse 180% 50% at 50% 105%, 
+      rgba(207, 10, 44, .7) 1%, 
+      rgba(42, 33, 66, .8) 40%, 
+      transparent 
+    );
+  background-color: rgba(7, 27, 44, 1); 
+  background-repeat: no-repeat;
+  background-size: 100% 100%; 
+  background-position: top, bottom;
 }
 
 #hero {
   display: flex;
   font-family: 'Anta', sans-serif;
   width: 100vw;
-  height: 18vh;
+  height: 14vh;
   color: rgb(249, 249, 249);
   text-align: center;
   justify-content: center;
   /* background-color: rgb(207, 10, 44); */
-  background: linear-gradient(to bottom, 
+  /* background: linear-gradient(to bottom, 
     rgb(207, 10, 44),
     rgba(207, 10, 44, 0)
-  )
+  ) */
 }
 
 .heroImg {
-  height: 60%;
+  height: 80%;
   width: auto;
   margin-top: 10px;
 }
@@ -94,11 +106,15 @@ body::-webkit-scrollbar {
   align-items: flex-start;
   width: 100%;
   height: 70vh;
-  border: rgb(138,138,141) 3px solid;
-  border-radius: 30px;
+  border-radius: 40px;
   overflow-x: hidden;
   overflow-y: auto; 
   margin-top: 1vh;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(22, 58, 82, 1),
+    rgba(117, 32, 58, 1)
+  );
 }
 
 /* FIREFOX */
@@ -120,7 +136,7 @@ scrollbar-color: #244151 transparent; */
   border-radius: 25px;  
   border: 7px solid transparent; 
   background-clip: padding-box;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 #chatWindow::-webkit-scrollbar-thumb:hover {
@@ -159,11 +175,11 @@ scrollbar-color: #244151 transparent; */
 } */
 
 .chatOutput.bot:last-child {
-  animation: botOutput 0.1s ease-out forwards;
+  animation: botOutput 0.2s ease-out forwards;
 }
 
 .chatOutput.user:last-child{
-  animation: userOutput .1s ease-out forwards;
+  animation: userOutput .2s ease-out forwards;
 }
 
 .chatOutput.user {
@@ -255,7 +271,7 @@ scrollbar-color: #244151 transparent; */
 
 @media (max-width: 400px) {
   .heroImg {
-    height: 55%;
+    height: 70%;
     margin-top: 2vh;
   }
 
@@ -263,7 +279,7 @@ scrollbar-color: #244151 transparent; */
 
 @media (min-height: 1000px) {
   .heroImg {
-    height: 50%;
+    height: 70%;
     margin-top: 2vh;
   }
 }
