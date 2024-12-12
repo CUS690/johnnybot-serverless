@@ -4,7 +4,7 @@
     submit = document.getElementById('submitButton'), 
     indicator;
 
-  //greet user after page loads
+  //INIT
   function greetUser(){
     let greeting = document.createElement('div')
 
@@ -12,14 +12,11 @@
     greeting.innerHTML = `Hi there! I'm Johnny Thunderbot – your guide to St. John's University. <br><br>Want to know how to register for class? The best places to eat? Confused about the campus?<br><br>Ask me anything.`
 
     chatWindow.append(greeting)
-
-    
   }
 
   window.onload = setTimeout(greetUser, 500);
 
   //FUNCTIONALITIES 
-
   //typing indicator (user)
   input.addEventListener('input', userTyping)
 
@@ -80,8 +77,9 @@
     }
   }
 
+  //DATA 
   async function getResponse(){
-    //USER RESPONSE 
+    //user response
     if (chatWindow.contains(indicator)) {
       chatWindow.removeChild(indicator)
     }
@@ -111,38 +109,42 @@
     chatWindow.appendChild(botIndicator);
     smoothScroll(chatWindow)
 
-    //LLM RESPONSE
+    // flask / lambda call
     try {
-      const response = await fetch("http://localhost:8000/api/generate", {
-        method: "POST",
+      // const response = await fetch('http://localhost:8000/api/generate', {
+        const response = await fetch('http://127.0.0.1:8888/query', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: userMessage })
+        // body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({
+          query: userMessage,
+          recent_context: `Reply as Johnny Thunderbot, the AI assistant for St. John's University.`
+        })
       });
   
       if (!response.ok) {
-        const errorMessage = await response.text(); 
+        let errorMessage = await response.text(); 
         throw new Error(`HTTP ${response.status}: ${errorMessage}`);
       }
   
-      const data = await response.json();
+      let data = await response.json();
+
+      // console.log('API response data:', data)
 
       if (chatWindow.contains(botIndicator)){ chatWindow.removeChild(botIndicator) }
-
-      chatWindow.innerHTML += `<div class="chatOutput bot">${data.reply}</div>`
-
+      chatWindow.innerHTML += `<div class="chatOutput bot">${data.answer}</div>`
       smoothScroll(chatWindow)
 
     } catch (error) {
-      console.error("Fetch error:", error.message);
-
-      chatWindow.innerHTML += `<div class="chatOutput bot">Sorry, Johnny couldn't get this message. Please wait or try again.</div>`
-
+      console.error('Fetch error:', error.message);
+      
       if (chatWindow.contains(botIndicator)){ chatWindow.removeChild(botIndicator) }
+      chatWindow.innerHTML += `<div class="chatOutput bot">Sorry, Johnny didn't get this message. Please wait or try again.</div>`
     }
   
-  }
+  } //END RESPONSE
 
   console.log('@ https://github.com/CUS690/johnnybot')
 

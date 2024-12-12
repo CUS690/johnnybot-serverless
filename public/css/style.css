@@ -250,10 +250,17 @@ scrollbar-color: #244151 transparent; */
 }
 
 #mainInputField {
+  position: relative;
+  font-family: sans-serif;
   border: none;
   border-radius: 25px;
-  padding: 0 15px;
+  padding: 10px 15px;
   width: 100%;
+  box-sizing: border-box;
+  min-height: 2.5rem;
+  transition: height 0.2s ease;
+  resize: none;
+  overflow: hidden;
 }
 
 .submitIcon {
