@@ -169,7 +169,8 @@
         smoothScroll(chatWindow);
 
         try {
-            const response = await fetch('', { //Plug in API Gateway route to Connection Lambda Function
+            const response = await fetch('https://3kmvlmiw79.execute-api.us-east-1.amazonaws.com/dev/query', { 
+            //Above, plug in a link to API Gateway which is integrated with the connecting flask lambda backend function. The one above will not work with any other code.
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userMessage, recent_context: conversationHistory.map(msg => `${msg.role}: ${msg.message}`).join('\n') }),
