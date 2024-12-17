@@ -12,8 +12,7 @@ def lambda_handler(event, context):
     app.config['DEBUG'] = True
     return run_simple("127.0.0.1", 5000, app)
 
-# Define your API Gateway URL
-event_api_url = "https://iil21nfeal.execute-api.us-east-1.amazonaws.com/dev/generateEvent"
+event_api_url = ""  #Plug in the API Gateway link to the Containerized(through Docker) Lambda function which calls OpenAI and Google CSE
 
 @app.route("/query", methods=["POST"])
 def query():
