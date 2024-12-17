@@ -1,0 +1,24 @@
+# LangChain and core dependencies
+langchain==0.0.208
+openai==0.27.8  # Specify the exact version of OpenAI
+
+# Google API dependencies
+google-api-python-client==2.92.0  # Main Google API client
+google-auth==2.22.0  # Core authentication for Google services
+google-auth-oauthlib==1.0.0  # OAuth2 library for Google APIs
+google-auth-httplib2==0.1.0  # HTTP client for Google Auth
+
+# Utilities
+requests==2.31.0  # HTTP requests library
+python-dotenv==1.0.0  # For managing environment variables
+
+# AWS dependencies
+boto3==1.28.10  # AWS SDK for Python
+
+# Additional dependencies for robustness
+httplib2==0.22.0  # HTTP library
+six==1.16.0  # Compatibility library
+urllib3==1.26.16  # Required for HTTP connections
+pyparsing==3.0.9  # Parsing expressions
+certifi==2023.7.22  # Certificate authority bundle
+chardet==5.1.0  # Universal encoding detector
