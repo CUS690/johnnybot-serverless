@@ -79,6 +79,11 @@
     // ==========================
     function saveConversation(role, message) {
         conversationHistory.push({ role, message });
+    
+        // Keep only the last MAX_HISTORY messages
+        if (conversationHistory.length > MAX_HISTORY) {
+            conversationHistory.shift();
+        }
     }
 
     function smoothScroll(elem) {
