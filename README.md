@@ -10,7 +10,8 @@ Our final component was a static front end which retains context memory of 10 ch
 http://johnnybot-live.s3-website-us-east-1.amazonaws.com
 
 
-If you want to duplicate this, you have to: 
+
+If you want to set this up yourself, you have to: 
 
 Lambda Function 1:
 - Create a Docker image in ECS Farget using my containerized-docker-lambda-function files. In order to work with my app.py file here, you'll need to create a .env file
