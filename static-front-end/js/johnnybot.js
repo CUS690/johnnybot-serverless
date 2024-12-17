@@ -169,7 +169,7 @@
         smoothScroll(chatWindow);
 
         try {
-            const response = await fetch('https://3kmvlmiw79.execute-api.us-east-1.amazonaws.com/dev/query', {
+            const response = await fetch('', { //Plug in API Gateway route to Connection Lambda Function
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userMessage, recent_context: conversationHistory.map(msg => `${msg.role}: ${msg.message}`).join('\n') }),
