@@ -14,7 +14,7 @@ http://johnnybot-live.s3-website-us-east-1.amazonaws.com
 If you want to set this up yourself, you have to: 
 
 Lambda Function 1:
-- Create a Docker image in ECS Farget using my containerized-docker-lambda-function files. In order to work with my app.py file here, you'll need to create a .env file
+- Create a Docker image in ECR using my containerized-docker-lambda-function files. In order to work with my app.py file here, you'll need to create a .env file
 specify your own API keys. You'll need the following fields: OPENAI_API_KEY Open AI, GOOGLE_API_KEY Google Cloud Platform, GOOGLE_CSE_ID Programmable Search Engine.
 - Ensure you have suficient funds in your accounts to create the embeddings and to use the model (about $10 in OpenAI if you already use the platforms a lot).
 - To get this specific information, create a Programmable Search Engine on Google Cloud Platform and copy the CSE ID it gives you. Do not use the entire web; just add the following three domains: *.studentaid.gov/* , *.torchonline.com/* , *.stjohns.edu/*
