@@ -166,4 +166,4 @@ View the chatbot here:
 ---
 
 ## Final Notes  
-Follow these steps to replicate the project locally or deploy it to the web. Let me know if you encounter any issues!
+Follow these steps to replicate the project locally or deploy it to the web. Good luck!
